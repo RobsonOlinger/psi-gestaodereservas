@@ -1,0 +1,6 @@
+﻿Diretório onde serão armazenados os códigos fontes da aplicação Web.
+
+Implmentacao do [WEB]Manter Reserva comitado dia 28/09/14.
+
+
+Atualizacao do código fonte web com a Implmentacao do [WEB]Manter Usuário comitado dia 29/09/14.
