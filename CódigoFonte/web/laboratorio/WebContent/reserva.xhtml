@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	<f:view contentType="text/html"/>
+	<h:head>
+		<title>Sistema de notas fiscais</title>
+		<h:outputStylesheet library="css" name="grid.css"/>
+		<h:outputStylesheet library="css" name="style.css"/>
+	</h:head>
+	<h:body>
+	
+	<div id="blocoCabecalho">
+		<div class="container">
+			<h:graphicImage library="imagens" 
+				name="logo-uber.png" 
+				id="logoCompany"/>
+		</div>
+	</div>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+		<h2>Cadastro de reservas</h2>
+		<h:form id="dados">
+			<fieldset>
+				<legend>Dados do reserva</legend>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{reservaMB.reserva.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{reservaMB.reserva.id}"
+						 rendered="#{reservaMB.reserva.id != null}"
+						 readonly="true"/>
+					<h:outputLabel value="Data cadastro:" for="data" 
+					     rendered="#{reservaMB.reserva.id != null}"/>
+					<h:inputText id="data" 
+						 value="#{reservaMB.reserva.dataCadastro.time}"
+						 rendered="#{reservaMB.reserva.id != null}"
+						 readonly="true">
+						 <f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:inputText>
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText id="nome" value="#{reservaMB.reserva.nome}"/>
+				    <h:outputLabel value="Matricula:" for="matricula"/>
+					<h:inputText id="matricula" value="#{reservaMB.reserva.matricula}"/>
+					<h:outputLabel value="Cargo:" for="cargo"/>
+					<h:inputText id="cargo" value="#{reservaMB.reserva.cargo}"/>
+					<h:outputLabel value="Curso:" for="curso"/>
+					<h:inputText id="curso" value="#{reservaMB.reserva.curso}"/>
+					<h:outputLabel value="Laboratorio:" for="laboratorio"/>
+					<h:inputText id="laboratorio" value="#{reservaMB.reserva.laboratorio}"/>
+					<h:outputLabel value="Pratica:" for="pratica"/>
+					<h:inputText id="pratica" value="#{reservaMB.reserva.pratica}"/>
+					<h:commandButton value="Salvar" action="#{reservaMB.salvar}">
+						<f:ajax execute="@form" render="@form :tabela" />
+					</h:commandButton>
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Listagem de reservas</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{reservaMB.listaReservas}" var="reserva"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{reserva.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{reserva.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Matricula" /></f:facet>
+					#{reserva.matricula}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cargo" /></f:facet>
+					#{reserva.cargo}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Curso" /></f:facet>
+					#{reserva.curso}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Laboratorio" /></f:facet>
+					#{reserva.laboratorio}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Pratica" /></f:facet>
+					#{reserva.pratica}
+				</h:column>
+							
+				<h:column>
+					<h:commandLink action="#{reservaMB.excluir}" 
+								   value="Remover">
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{reservaMB.reserva}" 
+							value="#{reserva}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render="@form :dados" />
+						<f:setPropertyActionListener 
+							target="#{reservaMB.reserva}" 
+							value="#{reserva}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</div>
+	</div>
+	<div id="blocoRodape">
+	<div class="container">
+		<p>Copyright 2013. 
+		Todos os direitos reservados</p>
+	</div>
+	</div>
+	</h:body>
+</html>
